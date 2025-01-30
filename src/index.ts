@@ -11,11 +11,11 @@ type Result<T> = { data: T; success: true } | { success: false; error: string };
 type ProjectSchema = {
   business_name: string;
   business_logo: string;
+  business_name_slug: string;
   id: string;
-  domain: string;
   user_id: string;
   need_publish: boolean;
-  build_pid: string;
+  app_id: string;
   build_last_step: number;
   build_total_step: number;
   env: {
@@ -32,12 +32,12 @@ async function getProject(projectId: string, userId: string) {
   const [project] = await sql<[ProjectSchema?]>`
       SELECT
             id,
-            domain,
             user_id,
             business_name,
+            business_name_slug,
             business_logo,
             env,
-            build_pid,
+            app_id,
             build_last_step,
             build_total_step
       FROM project
